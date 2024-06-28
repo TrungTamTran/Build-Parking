@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESERVATIONS</title>
+    <link rel="stylesheet" href="./assets/css/reservations.css">
+    <meta name="description" content="Providing real-time information, easy search, quick booking.">
+    <meta name="title" content="Smart Parking System">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="https://automaticparking.id.vn/index.html/">
+    <meta name="copyright" content="Automaticparking">
+    <meta name="author" content="Smart Parking System">
+    <meta name="google-site-verification" content="W60o5FIiNTC4qM0e14lVCrmQOH7MDm2jy50E3fvvTHs">
+    <meta itemprop="name" content="Smart Parking System">
+    <meta itemprop="image" content="https://tuyensinh.ut.edu.vn/wp-content/uploads/2022/03/275244853_4747835955339153_6364076342905238115_n.jpg">
+    <meta name="twitter:card" content="article">
+    <meta name="twitter:site" content="Automaticparking">
+    <meta name="twitter:title" content="Smart Parking System">
+    <meta name="twitter:description" content="Providing real-time information, easy search, quick booking.">
+    <meta name="twitter:creator" content="https://automaticparking.id.vn/index.html/">
+    <meta name="twitter:image" content="https://tuyensinh.ut.edu.vn/wp-content/uploads/2022/03/275244853_4747835955339153_6364076342905238115_n.jpg">
+    <meta property="og:type" content="Automaticparking">
+    <meta property="og:site_name" content="">
+    <meta property="og:title" content="Smart Parking System">
+    <meta property="og:url" content="https://automaticparking.id.vn/index.html/">
+    <meta property="og:image" content="https://tuyensinh.ut.edu.vn/wp-content/uploads/2022/03/275244853_4747835955339153_6364076342905238115_n.jpg">
+    <meta property="og:description" content="Providing real-time information, easy search, quick booking.">
+    <meta name="format-detection" content="telephone=no">
+    <meta property="fb:app_id" content="164035690775918">
+    <meta name="resource-type" content="Document">
+    <meta name="distribution" content="Global">
+    <meta property="fb:pages" content="345033318906366">
+    <link href="./assets/img/img.png" type="image/x-icon" rel="shortcut icon">
+    <meta http-equiv="audience" content="General">
+    <meta name="revisit-after" content="1 days">
+    <style>
+        /*  CSS cho cửa sổ thông báo */
+          .overlay {
+              display: none;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-color: rgba(0, 0, 0, 0.5);
+              z-index: 999;
+          }
+          .popup {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              background-color: #f9f9f9;
+              padding: 20px;
+              border-radius: 10px;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+              text-align: center;
+          }
+          .close {
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              font-size: 24px;
+              text-decoration: none;
+              color: #333;
+          }
+          .content {
+              margin-top: 20px;
+          }
+
+          .instruction-icon {
+              font-size: 18px;
+              margin-right: 5px;
+          }
+
+          @media (max-width: 600px) {
+              .popup {
+                  width: 90%;
+              }
+          }
+    </style>
+</head>
+<body>
+<!-- thông báo hiển thị -->
+<div id="popup" class="overlay">
+    <div class="popup">
+        <h2>Reservation Instructions</h2>
+        <a class="close" href="#" onclick="closePopup()">X</a>
+        <div class="content">
+            <p><span class="instruction-icon">🚗</span> Click on the reservation button on the blocks with red cars to make a reservation</p>
+            <p><span class="instruction-icon">🚙</span> The reserved block will appear green and the system will reserve your spot for 1 minutes</p>
+            <p><span class="instruction-icon">🅾️</span> Please enter the correct license plate number (XXYXXXXX)
+                <li>X represents the letter place</li>
+                <li>Y represents a capital letter</li>
+            </p>
+            <p>Example: 34G45678</p>
+            <p><span class="instruction-icon">⚠️</span>Note: Each customer can only reserve 1 seat per booking</p>
+            <p><span class="instruction-icon">⚠️</span>Note: We will not be responsible for property if you enter your license plate number incorrectly</p>
+            <p><span class="instruction-icon">🌟</span>After selecting the vehicle and entering the license plate, please press the "Submit button"</p>
+            <p><span class="instruction-icon">🌟</span>After picking up the car, the parking time will be updated on the website and the data will be deleted after 1 minute</p>
+            <p><span class="instruction-icon">😆</span><p>Thank you!</p>
+        </div>
+    </div>
+</div>
+<header>
+    <h1>RESERVATION</h1>
+</header>
+<section>
+    <div class="block-seat">
+        <!-- khu vuc tang 1 gom 6 block -->
+        <div class="seat">
+            <img id="denId" class="card-img-top" src="./assets/img/anh%20xe%20off.jpg" alt="Card image" style="width: 100%"/>
+            <h2>CAR ENTRY AREA</h2>
+        </div>
+        <div class="seat">
+            <img id="denId_01" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 1 L1</h2>
+            <button type="button" id="btnOnId_01" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_01" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_01" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein"></span></p>
+            <p>Parking time: <span id="result"></span></p>
+        </div>
+        <div class="seat">
+            <img id="denId_02" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 2 L1</h2>
+            <button type="button" id="btnOnId_02" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_02" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_02" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein2"></span></p>
+            <p>Parking time: <span id="result2"></span></p>
+        </div>
+        <div class="seat">
+            <img id="denId_04" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 4 L1</h2>
+            <button type="button" id="btnOnId_04" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_04" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_04" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein4"></span></p>
+            <p>Parking time: <span id="result4"></span></p>
+        </div>
+        <div class="seat">
+            <img id="denId_05" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 5 L1</h2>
+            <button type="button" id="btnOnId_05" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_05" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_05" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein5"></span></p>
+            <p>Parking time: <span id="result5"></span></p>
+        </div>
+        <div class="seat">
+            <img id="denId1" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>CAR EXIT AREA</h2>
+
+        </div>
+        <!-- khu vuc tang 2 gom 6 block -->
+        <div class="seat">
+            <img id="denId_00L2" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 0 L2</h2>
+            <button type="button" id="btnOnId_00L2" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_00L2" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_00l2" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein0L2"></span></p>
+            <p>Parking time: <span id="result0L2"></span></p>
+        </div>
+        <div class="seat">
+            <img id="denId_01L2" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 1 L2</h2>
+            <button type="button" id="btnOnId_01L2" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_01L2" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_01L2" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein1L2"></span></p>
+            <p>Parking time: <span id="result1L2"></span></p>
+        </div>
+        <div class="seat">
+            <img id="denId_02L2" class="card-img-top" src="./assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 2 L2</h2>
+            <button type="button" id="btnOnId_02L2" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_02L2" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_02L2" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein2L2"></span></p>
+            <p>Parking time: <span id="result2L2"></span></p>
+        </div>
+        <div class="seat">
+            <img id="denId_03L2" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 3 L2</h2>
+            <button type="button" id="btnOnId_03L2" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_03L2" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_03l2" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein3L2"></span></p>
+            <p>Parking time: <span id="result3L2"></span></p>
+        </div>
+        <div class="seat">
+            <img id="denId_04L2" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 4 L2</h2>
+            <button type="button" id="btnOnId_04L2" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_04L2" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_04l2" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein4L2"></span></p>
+            <p>Parking time: <span id="result4L2"></span></p>
+        </div>
+        <div class="seat">
+            <img id="denId_05L2" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 5 L2</h2>
+            <button type="button" id="btnOnId_05L2" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_05L2" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_05l2" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein5L2"></span></p>
+            <p>Parking time: <span id="result5L2"></span></p>
+        </div>
+        <!-- khu vuc tang 3 gom 6 block -->
+        <div class="seat special-seat">
+            <img id="denId_00L3" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 0 L3</h2>
+            <button type="button" id="btnOnId_00L3" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_00L3" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_00l3" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein0L3"></span></p>
+            <p>Parking time: <span id="result0L3"></span></p>
+        </div>
+        <div class="seat">
+            <img id="denId_01L3" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 1 L3</h2>
+            <button type="button" id="btnOnId_01L3" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_01L3" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_01l3" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein1L3"></span></p>
+            <p>Parking time: <span id="result1L3"></span></p>
+        </div>
+        <div class="seat">
+            <img id="denId_02L3" class="card-img-top" src="./assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 2 L3</h2>
+            <button type="button" id="btnOnId_02L3" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_02L3" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_02l3" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein2L3"></span></p>
+            <p>Parking time: <span id="result2L3"></span></p>
+        </div>
+        <div class="seat">
+            <img id="denId_03L3" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 3 L3</h2>
+            <button type="button" id="btnOnId_03L3" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_03L3" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_03l3" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein3L3"></span></p>
+            <p>Parking time: <span id="result3L3"></span></p>
+        </div>
+        <div class="seat">
+            <img id="denId_04L3" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 4 L3</h2>
+            <button type="button" id="btnOnId_04L3" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_04L3" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_04l3" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein4L3"></span></p>
+            <p>Parking time: <span id="result4L3"></span></p>
+        </div>
+        <div class="seat">
+            <img id="denId_05L3" class="card-img-top" src="assets/img/anh%20xe%20off.jpg" alt="image" style="width: 100%"/>
+            <h2>BLOCK 5 L3</h2>
+            <button type="button" id="btnOnId_05L3" class="btn waves-effect waves-lights">RESERVE</button>
+            <input type="text" id="inputId_05L3" class="input-field" placeholder="Enter XXXXXXXX" style="display: none;"/>
+            <a href="./thanh%20toan%20ve.html"id="btnOffId_05l3" class="btn waves-effect waves-lights"></a>
+            <p>Time In: <span id="timein5L3"></span></p>
+            <p>Parking time: <span id="result5L3"></span></p>
+        </div>
+
+        <button type="button" id="checkout-button" class="button">Submit Book</button>
+        <button type="button" id="checkout-button1" class="button">Note</button>
+        <button type="button1" id="checkout-button2" class="button1">Already booked</button>
+        <button type="button" id="checkout-button3" class="button">Empty space</button>
+    </div>
+</section>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+<script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyBuOppWhROHtbuZX4ejvc-C_WRgKFbfTek",
+        authDomain: "websitedatcho-32c9a.firebaseapp.com",
+        databaseURL: "https://websitedatcho-32c9a-default-rtdb.firebaseio.com",
+        projectId: "websitedatcho-32c9a",
+        storageBucket: "websitedatcho-32c9a.appspot.com",
+        messagingSenderId: "566543368924",
+        appId: "1:566543368924:web:6a19df6ba6f02870f46a19",
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+</script>
+<script>
+    function showPopup() {
+        document.getElementById("popup").style.display = "block";
+    }
+    function closePopup() {
+        document.getElementById("popup").style.display = "none";
+    }
+    document.getElementById("checkout-button1").addEventListener("click", showPopup);
+ window.addEventListener("load", showPopup);
+</script>
+<script src="functions.js"></script>
+<script src="random.js"></script>
+<script src="Time.js"></script>
+</body>
+</html>

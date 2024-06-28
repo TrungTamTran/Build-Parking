@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="description" content="Providing real-time information, easy search, quick booking.">
+    <meta name="title" content="Smart Parking System">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="https://automaticparking.id.vn/index.html/">
+    <meta name="copyright" content="Automaticparking">
+    <meta name="author" content="Smart Parking System">
+    <meta name="google-site-verification" content="W60o5FIiNTC4qM0e14lVCrmQOH7MDm2jy50E3fvvTHs">
+    <meta itemprop="name" content="Smart Parking System">
+    <meta itemprop="image" content="https://tuyensinh.ut.edu.vn/wp-content/uploads/2022/03/275244853_4747835955339153_6364076342905238115_n.jpg">
+    <meta name="twitter:card" content="article">
+    <meta name="twitter:site" content="Automaticparking">
+    <meta name="twitter:title" content="Smart Parking System">
+    <meta name="twitter:description" content="Providing real-time information, easy search, quick booking.">
+    <meta name="twitter:creator" content="https://automaticparking.id.vn/index.html/">
+    <meta name="twitter:image" content="https://tuyensinh.ut.edu.vn/wp-content/uploads/2022/03/275244853_4747835955339153_6364076342905238115_n.jpg">
+    <meta property="og:type" content="Automaticparking">
+    <meta property="og:site_name" content="">
+    <meta property="og:title" content="Smart Parking System">
+    <meta property="og:url" content="https://automaticparking.id.vn/index.html/">
+    <meta property="og:image" content="https://tuyensinh.ut.edu.vn/wp-content/uploads/2022/03/275244853_4747835955339153_6364076342905238115_n.jpg">
+    <meta property="og:description" content="Providing real-time information, easy search, quick booking.">
+    <meta name="format-detection" content="telephone=no">
+    <meta property="fb:app_id" content="164035690775918">
+    <meta name="resource-type" content="Document">
+    <meta name="distribution" content="Global">
+    <meta property="fb:pages" content="345033318906366">
+    <link href="./assets/img/img.png" type="image/x-icon" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="audience" content="General">
+    <meta name="revisit-after" content="1 days">
+    <title>QR Code and PIN</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+        #qrcode {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="qrcode"></div>
+<div id="pin"></div>
+
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+<script>
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
+
+    // Retrieve email from URL parameter
+    var email = getUrlParameter('email');
+    var pin = getUrlParameter('pin');
+
+
+    function sendEmailWithQRCode(email, pin, qrCodeData) {
+        // Construct the POST request data
+        var requestData = {
+            email: email,
+            pin: pin,
+            qrCodeData: qrCodeData
+        };
+
+        // Send the POST request to the server
+        fetch('http://localhost:3000/send-email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Email sent successfully');
+            } else {
+                console.error('Error sending email:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error sending email:', error);
+        });
+    }
+
+
+    var qrcode = new QRCode("qrcode", {
+        text: pin.toString(),
+        width: 500,
+        height: 500
+    });
+
+    document.getElementById('pin').innerText = 'PIN: ' + pin;
+
+    // Get QR code data URL
+    var qrCodeData = document.querySelector('canvas').toDataURL();
+
+    // Call the function to send email with QR code data
+    sendEmailWithQRCode(email, pin.toString(), qrCodeData);
+</script>
+<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+
+<script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyBuOppWhROHtbuZX4ejvc-C_WRgKFbfTek",
+        authDomain: "websitedatcho-32c9a.firebaseapp.com",
+        databaseURL: "https://websitedatcho-32c9a-default-rtdb.firebaseio.com",
+        projectId: "websitedatcho-32c9a",
+        storageBucket: "websitedatcho-32c9a.appspot.com",
+        messagingSenderId: "566543368924",
+        appId: "1:566543368924:web:6a19df6ba6f02870f46a19",
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+</script>
+<script src="functions.js"></script>
+</body>
+</html>
